@@ -24,3 +24,23 @@ use App\Http\Controllers\ChatbotController;
 
 // AI Chat API Route
 Route::post('/api/chat', [ChatbotController::class, 'chat']);
+
+// Remote DB Setup Route for Vercel
+Route::get('/setup-db', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+            '--seed' => true,
+            '--force' => true
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database migrated and seeded successfully!',
+            'output' => \Illuminate\Support\Facades\Artisan::output()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
