@@ -47,11 +47,23 @@ class DashboardController extends Controller
 
     public function datatable()
     {
-        $data = Negara::with('kunjunganAsal')->get();
+        $data = Negara::with('kunjunganAsal')->get()->map(function($row) {
+            return [
+                'id' => $row->id,
+                'country_name' => $row->country_name,
+                'jan' => $row->jan,
+                'feb' => $row->feb,
+                'mar' => $row->mar,
+                'apr' => $row->apr,
+                'may' => $row->may,
+                'id_negara' => $row->id_negara,
+            ];
+        });
+
         return DataTables::of($data)
             ->addColumn('actions', function ($row) {
-                return '<button class="text-blue-500 hover:underline mr-2" onclick="editRow('.$row->id_negara.')">Edit</button>
-                        <button class="text-red-500 hover:underline" onclick="deleteRow('.$row->id_negara.')">Delete</button>';
+                return '<button class="text-blue-500 hover:underline mr-2" onclick="editRow('.$row['id_negara'].')">Edit</button>
+                        <button class="text-red-500 hover:underline" onclick="deleteRow('.$row['id_negara'].')">Delete</button>';
             })
             ->rawColumns(['actions'])
             ->make(true);
