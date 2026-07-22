@@ -47,8 +47,8 @@ class DashboardController extends Controller
 
     public function datatable()
     {
-        $query = Negara::with('kunjunganAsal');
-        return DataTables::of($query)
+        $data = Negara::with('kunjunganAsal')->get();
+        return DataTables::of($data)
             ->addColumn('actions', function ($row) {
                 return '<button class="text-blue-500 hover:underline mr-2" onclick="editRow('.$row->id_negara.')">Edit</button>
                         <button class="text-red-500 hover:underline" onclick="deleteRow('.$row->id_negara.')">Delete</button>';
