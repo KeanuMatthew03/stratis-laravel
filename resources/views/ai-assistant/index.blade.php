@@ -269,7 +269,7 @@
                 this.scrollToBottom();
 
                 try {
-                    const response = await fetch('/api/chat', {
+                    const response = await fetch('/ajax/chat', {
                         method: 'POST',
                         headers: { 
                             'Content-Type': 'application/json',

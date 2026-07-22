@@ -220,7 +220,7 @@
         $('#visitorTable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/api/visitors/datatable',
+            ajax: '/ajax/visitors/datatable',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'country_name', name: 'country_name' },
@@ -419,7 +419,7 @@
             Use professional, strategic language.`;
 
             try {
-                const response = await fetch('/api/chat', {
+                const response = await fetch('/ajax/chat', {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -457,7 +457,7 @@
 
     async function editRow(id) {
         try {
-            const res = await fetch(`/api/visitors/${id}`);
+            const res = await fetch(`/ajax/visitors/${id}`);
             if (!res.ok) throw new Error('Failed to fetch record');
             const data = await res.json();
             
@@ -480,7 +480,7 @@
         if(!confirm('Are you sure you want to delete record ID: ' + id + '?')) return;
         
         try {
-            const res = await fetch(`/api/visitors/${id}`, {
+            const res = await fetch(`/ajax/visitors/${id}`, {
                 method: 'DELETE',
                 headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
             });
@@ -504,7 +504,7 @@
             may: document.getElementById('may').value
         };
 
-        const url = id ? `/api/visitors/${id}` : '/api/visitors';
+        const url = id ? `/ajax/visitors/${id}` : '/ajax/visitors';
         const method = id ? 'PUT' : 'POST';
 
         try {

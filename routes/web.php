@@ -7,13 +7,13 @@ use App\Http\Controllers\DashboardController;
 
 // Dashboard Routes
 Route::get('/', [DashboardController::class, 'index']);
-Route::get('/api/visitors/datatable', [DashboardController::class, 'datatable']);
+Route::get('/ajax/visitors/datatable', [DashboardController::class, 'datatable']);
 
 use App\Http\Controllers\VisitorStatisticController;
-Route::get('/api/visitors/{id}', [VisitorStatisticController::class, 'show']);
-Route::post('/api/visitors', [VisitorStatisticController::class, 'store']);
-Route::put('/api/visitors/{id}', [VisitorStatisticController::class, 'update']);
-Route::delete('/api/visitors/{id}', [VisitorStatisticController::class, 'destroy']);
+Route::get('/ajax/visitors/{id}', [VisitorStatisticController::class, 'show']);
+Route::post('/ajax/visitors', [VisitorStatisticController::class, 'store']);
+Route::put('/ajax/visitors/{id}', [VisitorStatisticController::class, 'update']);
+Route::delete('/ajax/visitors/{id}', [VisitorStatisticController::class, 'destroy']);
 
 // AI Assistant UI Route
 Route::get('/ai-assistant', function () {
@@ -23,7 +23,7 @@ Route::get('/ai-assistant', function () {
 use App\Http\Controllers\ChatbotController;
 
 // AI Chat API Route
-Route::post('/api/chat', [ChatbotController::class, 'chat']);
+Route::post('/ajax/chat', [ChatbotController::class, 'chat']);
 
 // Remote DB Setup Route for Vercel
 Route::get('/setup-db', function () {
