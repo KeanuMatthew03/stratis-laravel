@@ -1,0 +1,9 @@
+[
+  { "Country": "Brunei", "Destination": "Indonesia", "JAN": 747, "FEB": 1251, "MAR": 999, "APR": 857, "MAY": 1359, "Source": "BPS, UN WTO" },
+  { "Country": "Malaysia", "Destination": "Indonesia", "JAN": 155213, "FEB": 218057, "MAR": 160269, "APR": 170644, "MAY": 200070, "Source": "BPS, UN WTO" },
+  { "Country": "Philippines", "Destination": "Indonesia", "JAN": 16937, "FEB": 18367, "MAR": 20469, "APR": 17726, "MAY": 19462, "Source": "BPS, UN WTO" },
+  { "Country": "Singapore", "Destination": "Indonesia", "JAN": 85118, "FEB": 114301, "MAR": 120040, "APR": 81225, "MAY": 111021, "Source": "BPS, UN WTO" },
+  { "Country": "Thailand", "Destination": "Indonesia", "JAN": 7349, "FEB": 8777, "MAR": 8691, "APR": 9791, "MAY": 10081, "Source": "BPS, UN WTO" },
+  { "Country": "Vietnam", "Destination": "Indonesia", "JAN": 6102, "FEB": 9566, "MAR": 9253, "APR": 9590, "MAY": 10191, "Source": "BPS, UN WTO" },
+  { "Country": "Laos", "Destination": "Indonesia", "JAN": 139, "FEB": 211, "MAR": 198, "APR": 261, "MAY": 255, "Source": "BPS, UN WTO" }
+]
