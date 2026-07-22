@@ -22,25 +22,30 @@ class DatabaseSeeder extends Seeder
         $data = json_decode($json, true);
         
         $sumberMap = [];
+        $negaraMap = [];
+
+        // Create Indonesia as destination country
+        $sumberBPS = \App\Models\Sumber::create(['nama_sumber' => 'BPS']);
+        $sumberMap['BPS'] = $sumberBPS->id_sumber;
+        
+        $indonesia = \App\Models\Negara::create([
+            'nama_negara' => 'Indonesia',
+            'id_sumber' => $sumberBPS->id_sumber
+        ]);
+        $negaraMap['Indonesia'] = $indonesia->id_negara;
 
         foreach ($data as $item) {
-            // Assume sumber is generic for now if not provided, or create one dummy sumber
-            if (empty($sumberMap['BPS'])) {
-                $sumber = \App\Models\Sumber::create(['nama_sumber' => 'BPS']);
-                $sumberMap['BPS'] = $sumber->id_sumber;
-            }
-
             $negara = \App\Models\Negara::create([
-                'nama_negara' => $item['country_name'],
+                'nama_negara' => $item['Country'],
                 'id_sumber' => $sumberMap['BPS']
             ]);
 
             $months = [
-                'Januari' => 'jan',
-                'Februari' => 'feb',
-                'Maret' => 'mar',
-                'April' => 'apr',
-                'Mei' => 'may'
+                'Jan' => 'JAN',
+                'Feb' => 'FEB',
+                'Mar' => 'MAR',
+                'Apr' => 'APR',
+                'Mei' => 'MAY'
             ];
 
             foreach ($months as $bulanIndo => $bulanEng) {
@@ -49,7 +54,7 @@ class DatabaseSeeder extends Seeder
                         'jumlah' => $item[$bulanEng],
                         'bulan' => $bulanIndo,
                         'id_negara_asal' => $negara->id_negara,
-                        'id_negara_tujuan' => null // Nullable for generic
+                        'id_negara_tujuan' => $indonesia->id_negara
                     ]);
                 }
             }

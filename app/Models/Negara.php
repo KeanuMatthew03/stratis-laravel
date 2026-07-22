@@ -33,22 +33,22 @@ class Negara extends Model
 
     public function getJanAttribute()
     {
-        return $this->kunjunganAsal()->where('bulan', 'Januari')->sum('jumlah');
+        return $this->kunjunganAsal()->where('bulan', 'Jan')->sum('jumlah');
     }
 
     public function getFebAttribute()
     {
-        return $this->kunjunganAsal()->where('bulan', 'Februari')->sum('jumlah');
+        return $this->kunjunganAsal()->where('bulan', 'Feb')->sum('jumlah');
     }
 
     public function getMarAttribute()
     {
-        return $this->kunjunganAsal()->where('bulan', 'Maret')->sum('jumlah');
+        return $this->kunjunganAsal()->where('bulan', 'Mar')->sum('jumlah');
     }
 
     public function getAprAttribute()
     {
-        return $this->kunjunganAsal()->where('bulan', 'April')->sum('jumlah');
+        return $this->kunjunganAsal()->where('bulan', 'Apr')->sum('jumlah');
     }
 
     public function getMayAttribute()

@@ -57,10 +57,11 @@ class TourismDataService
             'id_sumber' => 1 // default
         ]);
         
-        $bulans = ['Januari' => 'jan', 'Februari' => 'feb', 'Maret' => 'mar', 'April' => 'apr', 'Mei' => 'may'];
+        $bulans = ['Jan' => 'jan', 'Feb' => 'feb', 'Mar' => 'mar', 'Apr' => 'apr', 'Mei' => 'may'];
         foreach ($bulans as $bulan => $key) {
             Kunjungan::create([
                 'id_negara_asal' => $negara->id_negara,
+                'id_negara_tujuan' => 1, // Assume Indonesia is ID 1 or adjust as needed
                 'bulan' => $bulan,
                 'jumlah' => $data[$key]
             ]);
@@ -74,11 +75,11 @@ class TourismDataService
         $negara = Negara::findOrFail($id);
         $negara->update(['nama_negara' => $data['country_name']]);
         
-        $bulans = ['Januari' => 'jan', 'Februari' => 'feb', 'Maret' => 'mar', 'April' => 'apr', 'Mei' => 'may'];
+        $bulans = ['Jan' => 'jan', 'Feb' => 'feb', 'Mar' => 'mar', 'Apr' => 'apr', 'Mei' => 'may'];
         foreach ($bulans as $bulan => $key) {
             Kunjungan::updateOrCreate(
                 ['id_negara_asal' => $negara->id_negara, 'bulan' => $bulan],
-                ['jumlah' => $data[$key]]
+                ['jumlah' => $data[$key], 'id_negara_tujuan' => 1]
             );
         }
         return true;
