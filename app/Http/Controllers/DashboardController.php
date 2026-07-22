@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\TourismDataService;
-use App\Models\VisitorStatistic;
+use App\Models\Negara;
 use Yajra\DataTables\Facades\DataTables;
 
 class DashboardController extends Controller
@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = $this->dataService->getDashboardStats();
-        $allData = VisitorStatistic::all();
+        $allData = Negara::with('kunjunganAsal')->get();
         
         $months = ['January', 'February', 'March', 'April', 'May'];
         $trendData = [
@@ -47,11 +47,11 @@ class DashboardController extends Controller
 
     public function datatable()
     {
-        $query = VisitorStatistic::query();
+        $query = Negara::with('kunjunganAsal');
         return DataTables::of($query)
             ->addColumn('actions', function ($row) {
-                return '<button class="text-blue-500 hover:underline mr-2" onclick="editRow('.$row->id.')">Edit</button>
-                        <button class="text-red-500 hover:underline" onclick="deleteRow('.$row->id.')">Delete</button>';
+                return '<button class="text-blue-500 hover:underline mr-2" onclick="editRow('.$row->id_negara.')">Edit</button>
+                        <button class="text-red-500 hover:underline" onclick="deleteRow('.$row->id_negara.')">Delete</button>';
             })
             ->rawColumns(['actions'])
             ->make(true);

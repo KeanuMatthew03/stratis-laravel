@@ -2,23 +2,24 @@
 
 namespace App\Services;
 
-use App\Models\VisitorStatistic;
+use App\Models\Negara;
+use App\Models\Kunjungan;
 
 class TourismDataService
 {
     public function getRawDataset(): string
     {
-        return VisitorStatistic::all()->toJson();
+        return Negara::with('kunjunganAsal')->get()->toJson();
     }
 
     public function getParsedDataset(): array
     {
-        return VisitorStatistic::all()->toArray();
+        return Negara::with('kunjunganAsal')->get()->toArray();
     }
 
     public function getDashboardStats(): array
     {
-        $dataset = VisitorStatistic::all();
+        $dataset = Negara::with('kunjunganAsal')->get();
         
         $totalCountries = $dataset->count();
         $totalVisitors = 0;
@@ -43,25 +44,50 @@ class TourismDataService
         return compact('totalCountries', 'totalVisitors', 'highest', 'lowest');
     }
 
-    public function getVisitorById(int $id): ?VisitorStatistic
+    public function getVisitorById(int $id): ?Negara
     {
-        return VisitorStatistic::find($id);
+        return Negara::with('kunjunganAsal')->find($id);
     }
 
-    public function createVisitor(array $data): VisitorStatistic
+    public function createVisitor(array $data): Negara
     {
-        return VisitorStatistic::create($data);
+        // CRUD for ERD logic
+        $negara = Negara::create([
+            'nama_negara' => $data['country_name'],
+            'id_sumber' => 1 // default
+        ]);
+        
+        $bulans = ['Januari' => 'jan', 'Februari' => 'feb', 'Maret' => 'mar', 'April' => 'apr', 'Mei' => 'may'];
+        foreach ($bulans as $bulan => $key) {
+            Kunjungan::create([
+                'id_negara_asal' => $negara->id_negara,
+                'bulan' => $bulan,
+                'jumlah' => $data[$key]
+            ]);
+        }
+        
+        return $negara;
     }
 
     public function updateVisitor(int $id, array $data): bool
     {
-        $visitor = VisitorStatistic::findOrFail($id);
-        return $visitor->update($data);
+        $negara = Negara::findOrFail($id);
+        $negara->update(['nama_negara' => $data['country_name']]);
+        
+        $bulans = ['Januari' => 'jan', 'Februari' => 'feb', 'Maret' => 'mar', 'April' => 'apr', 'Mei' => 'may'];
+        foreach ($bulans as $bulan => $key) {
+            Kunjungan::updateOrCreate(
+                ['id_negara_asal' => $negara->id_negara, 'bulan' => $bulan],
+                ['jumlah' => $data[$key]]
+            );
+        }
+        return true;
     }
 
     public function deleteVisitor(int $id): bool
     {
-        $visitor = VisitorStatistic::findOrFail($id);
-        return $visitor->delete();
+        $negara = Negara::findOrFail($id);
+        Kunjungan::where('id_negara_asal', $negara->id_negara)->delete();
+        return $negara->delete();
     }
 }
