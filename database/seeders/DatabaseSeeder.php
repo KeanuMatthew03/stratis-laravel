@@ -14,10 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            VisitorStatisticSeeder::class,
-        ]);
-
         $json = file_get_contents(storage_path('app/dataset.json'));
         $data = json_decode($json, true);
         
