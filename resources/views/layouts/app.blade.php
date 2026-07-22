@@ -41,9 +41,9 @@
         <!-- Header Sidebar -->
         <div class="border-b border-slate-200 h-[80px] w-full shrink-0 relative overflow-hidden">
             <!-- Collapsed: Emblem doang (logo-icon.png) -->
-            <img src="{{ asset('logo-icon.png') }}?v={{ time() }}" alt="Logo Icon" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60px] h-[60px] object-contain opacity-100 group-hover:opacity-0" style="transition: opacity 0.5s ease;">
+            <img src="/logo-icon.png?v={{ time() }}" alt="Logo Icon" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60px] h-[60px] object-contain opacity-100 group-hover:opacity-0" style="transition: opacity 0.5s ease;">
             <!-- Expanded: Full logo gede (logo.png) -->
-            <img src="{{ asset('logo.png') }}?v={{ time() }}" alt="Logo Full" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full object-contain scale-[2] opacity-0 group-hover:opacity-100" style="transition: opacity 0.5s ease;">
+            <img src="/logo.png?v={{ time() }}" alt="Logo Full" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full object-contain scale-[2] opacity-0 group-hover:opacity-100" style="transition: opacity 0.5s ease;">
         </div>
         
         <nav class="flex-1 py-6 flex flex-col gap-2">
